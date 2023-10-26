@@ -1,5 +1,6 @@
 package Repository;
 
+import Domain.AdmissionRoom;
 import Domain.ExaminationRoom;
 import Domain.HospitalRoom;
 
@@ -33,5 +34,24 @@ public class HospitalRoomRepository extends BaseRepository<HospitalRoom>{
     @Override
     public ArrayList<HospitalRoom> getAll() {
         return roomsRepository;
+    }
+
+    public ArrayList<ExaminationRoom> getAllExaminationRooms(){
+        ArrayList<ExaminationRoom> rooms = new ArrayList<>();
+        for(HospitalRoom hospitalRoom: roomsRepository){
+            if(hospitalRoom instanceof ExaminationRoom){
+                rooms.add((ExaminationRoom) hospitalRoom);
+            }
+        }
+        return rooms;
+    }
+    public ArrayList<AdmissionRoom> getAllAdmissionRooms(){
+        ArrayList<AdmissionRoom> rooms = new ArrayList<>();
+        for(HospitalRoom hospitalRoom: roomsRepository){
+            if(hospitalRoom instanceof AdmissionRoom){
+                rooms.add((AdmissionRoom) hospitalRoom);
+            }
+        }
+        return rooms;
     }
 }

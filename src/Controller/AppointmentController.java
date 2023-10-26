@@ -42,7 +42,7 @@ public class AppointmentController extends BaseController<Appointment> {
                 break;
             }
         }
-        for (ExaminationRoom examinationRoom1 : examinationRoomRepository.getAll()) {
+        for (ExaminationRoom examinationRoom1 : examinationRoomRepository.getAllExaminationRooms()) {
             if (examinationRoom1.getRoomID() == examinationRoomID) {
                 examinationRoom = examinationRoom1;
                 break;
