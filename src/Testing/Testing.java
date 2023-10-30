@@ -8,6 +8,7 @@ import UI.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class Testing {
     public static ArrayList<Patient> PatientRepo(){
@@ -16,6 +17,7 @@ public class Testing {
         calendar.set(2003, Calendar.OCTOBER, 28);
         Date date = calendar.getTime();
         Patient patient1 = new Patient("Sarah","Miller",date,"0752134322","Nasaud 16");
+        patients.add(patient1);
         calendar.set(2003,Calendar.JUNE,26);
         date = calendar.getTime();
         Patient patient2 = new Patient("Antonia","Kocsis",date,"0752134333","Dorobantilor 23 ");
@@ -108,7 +110,6 @@ public class Testing {
         PatientRepository patientRepository = new PatientRepository(PatientRepo());
         PatientController patientController = new PatientController(patientRepository);
         PatientUI patientUI = new PatientUI(patientController);
-        patientUI.menu();
 
         DepartmentRepository departmentRepository = new DepartmentRepository(DepartmentRepo());
         DoctorRepository doctorRepository  = new DoctorRepository(DoctorRepo());
@@ -137,6 +138,98 @@ public class Testing {
         AppointmentController appointmentController = new AppointmentController(appointmentRepository,patientRepository,doctorRepository,hospitalRoomRepository);
         AppointmentUI appointmentUI = new AppointmentUI(appointmentController);
 
+
+        System.out.println("Patient Tests - Controller");
+
+        System.out.println("    - Testing Add");
+        Calendar calendar3 = Calendar.getInstance();
+        calendar3.set(2003, Calendar.DECEMBER, 12);
+        Date date = calendar3.getTime();
+        patientController.add("Miruna","Miller",date,"0752134322","Nasaud 16");
+        assert Objects.equals(patientController.getAll().getLast().getFirstName(),"Miruna");
+
+        System.out.println("    - Testing Remove");
+        patientController.remove(6);
+        assert patientController.getAll().getLast().getPatientID() == 5;
+
+        System.out.println("    - Testing Update");
+        patientController.updateFirstName(1,"Krisztina");
+        assert Objects.equals(patientController.getAll().getFirst().getFirstName(), "Krisztina");
+        System.out.println();
+        System.out.println("Doctor Test - Controller");
+
+        System.out.println("    - Testing Enroll in department");
+        doctorController.enrollDoctor(1,1);
+        doctorController.enrollDoctor(1,11);
+        assert doctorController.getDepartments(1).getFirst().getDepartmentID() == 1;
+        assert doctorController.getDepartments(1).getLast().getDepartmentID() == 11;
+        assert departmentController.getEnrolledDoctors(11).getFirst().getDoctorID() == 1;
+        System.out.println();
+
+        System.out.println("Medication Test - Repository");
+        System.out.println("    - Testing Add");
+        Medication medication1 = new Medication("Nospa",1000);
+        Medication medication2 = new Medication("Ketof",400);
+        medicationRepository.add(medication1);
+        medicationRepository.add(medication2);
+        assert Objects.equals(medicationRepository.getAll().getLast().getName(), "Ketof");
+
+        System.out.println("    - Testing Remove");
+        assert medicationRepository.getAll().getLast().getMedicationID() == 11;
+        medicationRepository.remove(medication2);
+        assert medicationRepository.getAll().getLast().getMedicationID() == 10;
+
+        System.out.println("    - Testing Update");
+        medicationRepository.updateConcentration(medication1,600);
+        assert medicationRepository.getAll().getLast().getConcentration() == 600;
+        System.out.println();
+
+        System.out.println("Appointment Test - Controller");
+        System.out.println("    - Testing Add");
+        appointmentController.add(1,1,date,101);
+        assert appointmentController.getAll().getLast().getAppointmentID() == 1;
+
+        System.out.println("    - Testing Remove");
+        appointmentController.remove(1);
+        assert appointmentController.getAll().size() == 0;
+
+        System.out.println("    - Testing Update");
+        appointmentController.add(1,1,date,101);
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.set(2003, Calendar.JULY, 23);
+        Date date2 = calendar2.getTime();
+        appointmentController.reschedule(2,date2);
+        assert appointmentController.getAll().getLast().getDate() == date2;
+        System.out.println();
+
+        System.out.println("Department Test - Repository");
+        Department department1 = new Department("Obstetrics and Gynecology ");
+        Department department2 = new Department("Medical-Surgical Unit");
+        departmentRepository.add(department1);
+        departmentRepository.add(department2);
+
+        System.out.println("    - Testing add");
+        assert departmentRepository.getAll().contains(department1) && departmentRepository.getAll().contains(department2);
+
+        System.out.println("    - Testing remove");
+        departmentRepository.remove(department2);
+        departmentRepository.remove(department1);
+        assert departmentRepository.getAll().contains(department2) == false;
+        assert departmentRepository.getAll().contains(department1) == false;
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
+
 
 }
