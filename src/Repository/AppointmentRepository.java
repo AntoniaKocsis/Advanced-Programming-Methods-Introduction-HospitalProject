@@ -3,6 +3,7 @@ package Repository;
 import Domain.Appointment;
 import Domain.DoctorDashboard;
 import Domain.PatientNotificationSystem;
+import Interfaces.AppointmentObserver;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,29 +27,18 @@ public class AppointmentRepository extends BaseRepository<Appointment> {
         PatientNotificationSystem patientNotificationSystem = new PatientNotificationSystem(appointment.getPatient());
         appointment.registerObserver(doctorDashboard);
         appointment.registerObserver(patientNotificationSystem);
-        appointment.notify();
         appointmentRepository.add(appointment);
+        appointment.notifyObservers();
+    }
+    public boolean remove(Appointment appointment) {
+        return appointmentRepository.remove(appointment);
     }
 
-    @Override
-    public boolean remove(int appointmentID) {
-        for (Appointment appointment : appointmentRepository) {
-            if (appointment.getAppointmentID() == appointmentID) {
-                appointmentRepository.remove(appointment);
-                return true;
-            }
-        }
-        return false;
+    public void reschedule(Appointment appointment, Date date) {
+        appointment.setDate(date);
+        appointment.notifyObservers();
     }
-
-    public boolean reschedule(int appointmentID, Date date) {
-        for (Appointment appointment : appointmentRepository) {
-            if (appointment.getAppointmentID() == appointmentID) {
-                appointment.setDate(date);
-                appointment.notify();
-                return true;
-            }
-        }
-        return false;
+    public ArrayList<AppointmentObserver> appointmentObservers(Appointment appointment){
+        return appointment.getObservers();
     }
 }

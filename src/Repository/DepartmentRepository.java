@@ -1,10 +1,11 @@
 package Repository;
 
 import Domain.Department;
+import Domain.Doctor;
 
 import java.util.ArrayList;
 
-public class DepartmentRepository extends BaseRepository<Department>{
+public class DepartmentRepository extends BaseRepository<Department> {
     private ArrayList<Department> departmentRepository;
 
     public DepartmentRepository() {
@@ -12,21 +13,32 @@ public class DepartmentRepository extends BaseRepository<Department>{
         this.departmentRepository = new ArrayList<>();
     }
 
-    @Override
-    public void add(Department item) {
-     departmentRepository.add(item);
+    public DepartmentRepository(ArrayList<Department> departments) {
+        super();
+        departmentRepository = departments;
+
     }
 
     @Override
-    public boolean remove(int id) {
-        for(Department department:departmentRepository){
-            if(department.getDepartmentID() == id)
-            {
-                departmentRepository.remove(department);
-                return true;
-            }
-        }
-        return false;
+    public void add(Department item) {
+        departmentRepository.add(item);
+    }
+
+    public void enrollDoctor(Department department, Doctor doctor) {
+        if (!department.getDoctors().contains(doctor))
+            department.enrollDoctor(doctor);
+        if (!doctor.getDepartments().contains(department))
+            doctor.enrollInDepartment(department);
+    }
+
+    public void removeDoctor(Department department, Doctor doctor) {
+        department.removeDoctor(doctor);
+        doctor.removeDepartment(department);
+    }
+
+    @Override
+    public boolean remove(Department department) {
+        return departmentRepository.remove(department);
     }
 
     @Override
@@ -34,13 +46,11 @@ public class DepartmentRepository extends BaseRepository<Department>{
         return departmentRepository;
     }
 
-    public boolean updateName(int id,String name){
-        for(Department department : departmentRepository){
-            if(department.getDepartmentID() == id) {
-                department.setName(name);
-                return true;
-            }
-        }
-        return false;
+    public void updateName(Department department, String name) {
+        department.setName(name);
+    }
+
+    public ArrayList<Doctor> getEnrolledDoctors(Department department) {
+        return department.getDoctors();
     }
 }

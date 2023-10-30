@@ -19,16 +19,32 @@ public class MedicationController extends BaseController<Medication> {
     }
 
     public boolean updateName(int id, String name) {
-        return medicationRepository.updateName(id, name);
+        for (Medication medication : medicationRepository.getAll()) {
+            if (medication.getMedicationID() == id) {
+                medicationRepository.updateName(medication,name);
+            }
+        }
+        return false;
     }
 
     public boolean updateConcentration(int id, int concentration) {
-        return medicationRepository.updateConcentration(id,concentration);
+        for (Medication medication : medicationRepository.getAll()) {
+            if (medication.getMedicationID() == id) {
+                medicationRepository.updateConcentration(medication,concentration);
+            }
+        }
+        return false;
     }
 
     @Override
     public boolean remove(int id) {
-        return medicationRepository.remove(id);
+
+        for (Medication medication : medicationRepository.getAll()) {
+            if (medication.getMedicationID() == id) {
+                return medicationRepository.remove(medication);
+            }
+        }
+        return false;
     }
 
     @Override

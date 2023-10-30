@@ -1,13 +1,12 @@
 package Controller;
 
 import Domain.Patient;
-import Interfaces.UpdatePersonInfoInterface;
 import Repository.PatientRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-public class PatientController extends BaseController<Patient> implements UpdatePersonInfoInterface {
+public class PatientController extends BaseController<Patient> {
     private PatientRepository patientRepository;
 
     public PatientController(PatientRepository patientRepository) {
@@ -20,35 +19,69 @@ public class PatientController extends BaseController<Patient> implements Update
         patientRepository.add(patient);
     }
 
-    @Override
-    public boolean remove(int ID) {
-        return patientRepository.remove(ID);
+    public boolean remove(int patientID) {
+
+        for (Patient patient : patientRepository.getAll()) {
+            if (patient.getPatientID() == patientID) {
+                return patientRepository.remove(patient);
+            }
+        }
+        return false;
     }
 
-    @Override
+
+
     public boolean updateFirstName(int ID, String name) {
-        return patientRepository.updateFirstName(ID, name);
+        for (Patient patient2 : patientRepository.getAll()) {
+            if (patient2.getPatientID() == ID) {
+               patientRepository.updateFirstName(patient2,name);
+                return true;
+            }
+        }
+        return false;
 
     }
 
-    @Override
+
     public boolean updateLastName(int ID, String name) {
-        return patientRepository.updateLastName(ID, name);
+        for (Patient patient2 : patientRepository.getAll()) {
+            if (patient2.getPatientID() == ID) {
+                patientRepository.updateLastName(patient2,name);
+                return true;
+            }
+        }
+        return false;
     }
 
-    @Override
     public boolean updateBirthDate(int ID, Date date) {
-        return patientRepository.updateBirthDate(ID, date);
+        for (Patient patient2 : patientRepository.getAll()) {
+            if (patient2.getPatientID() == ID) {
+                patientRepository.updateBirthDate(patient2,date);
+                return true;
+            }
+        }
+        return false;
     }
 
-    @Override
+
     public boolean updateContact(int ID, String contact) {
-        return patientRepository.updateContact(ID, contact);
+        for (Patient patient2 : patientRepository.getAll()) {
+            if (patient2.getPatientID() == ID) {
+               patientRepository.updateContact(patient2,contact);
+                return true;
+            }
+        }
+        return false;
     }
 
-    @Override
     public boolean updateAddress(int ID, String address) {
-        return patientRepository.updateAddress(ID, address);
+        for (Patient patient2 : patientRepository.getAll()) {
+            if (patient2.getPatientID() == ID) {
+                patientRepository.updateAddress(patient2,address);
+                return true;
+            }
+        }
+        return false;
 
     }
 

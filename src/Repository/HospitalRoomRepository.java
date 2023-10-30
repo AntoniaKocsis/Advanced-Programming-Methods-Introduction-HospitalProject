@@ -14,6 +14,11 @@ public class HospitalRoomRepository extends BaseRepository<HospitalRoom>{
         super();
         this.roomsRepository = new ArrayList<>();
     }
+    public HospitalRoomRepository(ArrayList<HospitalRoom> rooms){
+        super();
+        roomsRepository = rooms;
+
+    }
 
     @Override
     public void add(HospitalRoom item) {
@@ -21,14 +26,8 @@ public class HospitalRoomRepository extends BaseRepository<HospitalRoom>{
     }
 
     @Override
-    public boolean remove(int id) {
-        for(HospitalRoom room:roomsRepository){
-            if(room.getRoomID() == id){
-                roomsRepository.remove(room);
-                return true;
-            }
-        }
-        return false;
+    public boolean remove(HospitalRoom hospitalRoom) {
+        return roomsRepository.remove(hospitalRoom);
     }
 
     @Override

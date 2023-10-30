@@ -1,6 +1,7 @@
 package UI;
 
 import Controller.DoctorController;
+import Domain.Department;
 import Domain.Doctor;
 
 import java.text.ParseException;
@@ -21,17 +22,25 @@ public class DoctorUI extends BaseUI {
     public void menu() {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
+
         while (running) {
             System.out.println("----------------------- SEATTLE GRACE HOSPITAL -----------------------");
-            System.out.println("----------------------------- DOCTORS -------------------------------");
+            System.out.println("----------------------------- DOCTORS ---------------------------");
             System.out.println("1. Add Doctor");
             System.out.println("2. Remove Doctor");
             System.out.println("3. Update Doctor's info");
-            System.out.println("4. View All Doctors");
-            System.out.println("5. Exit");
+            System.out.println("4. Enroll Doctor In Department");
+            System.out.println("5. Remove Department");
+            System.out.println("6. View Departments");
+            System.out.println("7. View All Doctors");
+            System.out.println("8. Return To The Main Page");
+            System.out.println("9. Log Out");
+
             System.out.print("Select an option: ");
+
             int choice = scanner.nextInt();
             scanner.nextLine();
+            String option;
             switch (choice) {
                 case 1:
                     add();
@@ -43,13 +52,22 @@ public class DoctorUI extends BaseUI {
                     updateInfo();
                     break;
                 case 4:
-                    viewAll();
+                    enrollDoctor();
                     break;
                 case 5:
+                    removeDepartment();
+                    break;
+                case 6:
+                    viewDepartments();
+                    break;
+                case 7:
+                    viewAll();
+                    break;
+                case 8:
                     running = false;
                     break;
 
-                case 6:
+                case 9:
                     System.out.println("Exiting the program.");
                     scanner.close();
                     System.exit(0);
@@ -60,7 +78,28 @@ public class DoctorUI extends BaseUI {
             }
         }
     }
+    public void enrollDoctor(){
+        Scanner scanner = new Scanner(System.in);
+        int departmentID,doctorID;
+        System.out.println("Doctor ID");
+        doctorID = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Department ID");
+        departmentID = scanner.nextInt();
+        controller.enrollDoctor(doctorID,departmentID);
 
+
+    }
+    public void removeDepartment(){
+        Scanner scanner = new Scanner(System.in);
+        int departmentID,doctorID;
+        System.out.println("Doctor ID");
+        doctorID = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Department ID");
+        departmentID = scanner.nextInt();
+        controller.removeFromDepartment(doctorID,departmentID);
+    }
     @Override
     public void add() {
         System.out.println("----------------------- ADDING TO DATABASE -----------------------");
@@ -267,6 +306,16 @@ public class DoctorUI extends BaseUI {
         System.out.println("----------------------- ALL DOCTORS -----------------------");
         for (Doctor doctor : controller.getAll()) {
             System.out.println(doctor);
+        }
+    }
+    public void viewDepartments(){
+        System.out.println("----------------------- DEPARTMENTS -----------------------");
+        Scanner scanner = new Scanner(System.in);
+        int doctorID;
+        System.out.println("Doctor ID: ");
+        doctorID = scanner.nextInt();
+        for(Department department: controller.getDepartments(doctorID)){
+            System.out.println(department);
         }
     }
 }

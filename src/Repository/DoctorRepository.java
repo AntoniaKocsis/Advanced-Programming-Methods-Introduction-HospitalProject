@@ -1,17 +1,35 @@
 package Repository;
 
+import Domain.Department;
 import Domain.Doctor;
-import Interfaces.UpdatePersonInfoInterface;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-public class DoctorRepository extends BaseRepository<Doctor> implements UpdatePersonInfoInterface {
+public class DoctorRepository extends BaseRepository<Doctor> {
     private ArrayList<Doctor> doctorRepository;
 
     public DoctorRepository() {
         super();
         this.doctorRepository = new ArrayList<>();
+    }
+
+    public DoctorRepository(ArrayList<Doctor> doctors) {
+        super();
+        this.doctorRepository = doctors;
+
+    }
+
+    public void enrollDoctor(Doctor doctor, Department department) {
+        if (!doctor.getDepartments().contains(department))
+            doctor.enrollInDepartment(department);
+        if (!department.getDoctors().contains(doctor))
+            department.enrollDoctor(doctor);
+    }
+
+    public void removeFromDepartment(Doctor doctor, Department department) {
+        doctor.removeDepartment(department);
+        department.removeDoctor(doctor);
     }
 
     @Override
@@ -20,13 +38,8 @@ public class DoctorRepository extends BaseRepository<Doctor> implements UpdatePe
     }
 
     @Override
-    public boolean remove(int doctorID) {
-        for (Doctor doctor : doctorRepository) {
-            if (doctor.getDoctorID() == doctorID) {
-                return doctorRepository.remove(doctor);
-            }
-        }
-        return false;
+    public boolean remove(Doctor doctor) {
+        return doctorRepository.remove(doctor);
     }
 
     @Override
@@ -34,60 +47,28 @@ public class DoctorRepository extends BaseRepository<Doctor> implements UpdatePe
         return doctorRepository;
     }
 
-    @Override
-    public boolean updateFirstName(int ID, String name) {
-        for (Doctor doctor : doctorRepository) {
-            if (doctor.getDoctorID() == ID) {
-                doctor.setFirstName(name);
-                return true;
-            }
-        }
-        return false;
+
+    public void updateFirstName(Doctor doctor, String name) {
+        doctor.setFirstName(name);
     }
 
-    @Override
-    public boolean updateLastName(int ID, String name) {
-        for (Doctor doctor : doctorRepository) {
-            if (doctor.getDoctorID() == ID) {
-                doctor.setLastName(name);
-                return true;
-            }
-        }
-        return false;
+    public void updateLastName(Doctor doctor, String name) {
+        doctor.setLastName(name);
     }
 
-    @Override
-    public boolean updateContact(int ID, String contact) {
-        for (Doctor doctor : doctorRepository) {
-            if (doctor.getDoctorID() == ID) {
-                doctor.setContact(contact);
-                return true;
-            }
 
-        }
-        return false;
+    public void updateContact(Doctor doctor, String contact) {
+        doctor.setContact(contact);
     }
 
-    @Override
-    public boolean updateAddress(int ID, String address) {
-        for (Doctor doctor : doctorRepository) {
-            if (doctor.getDoctorID() == ID) {
-                doctor.setAddress(address);
-                return true;
-            }
-        }
-
-        return false;
+    public void updateAddress(Doctor doctor, String address) {
+        doctor.setAddress(address);
     }
 
-    @Override
-    public boolean updateBirthDate(int ID, Date date) {
-        for (Doctor doctor : doctorRepository) {
-            if (doctor.getDoctorID() == ID) {
-                doctor.setBirthDate(date);
-                return true;
-            }
-        }
-        return false;
+    public void updateBirthDate(Doctor doctor, Date date) {
+        doctor.setBirthDate(date);
+    }
+    public ArrayList<Department> getDepartments(Doctor doctor){
+        return doctor.getDepartments();
     }
 }

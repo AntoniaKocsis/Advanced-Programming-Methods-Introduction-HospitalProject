@@ -29,7 +29,7 @@ public class PatientUI extends BaseUI {
             System.out.println("1. Add Patient");
             System.out.println("2. Remove Patient");
             System.out.println("3. Update Patient's info");
-            System.out.println("4. View all patients");
+            System.out.println("4. View All Patients");
             System.out.println("5. Return To The Main Page");
             System.out.println("6. Log Out");
 
@@ -37,7 +37,6 @@ public class PatientUI extends BaseUI {
 
             int choice = scanner.nextInt();
             scanner.nextLine();
-            String option;
             switch (choice) {
                 case 1:
                     add();
@@ -192,6 +191,10 @@ public class PatientUI extends BaseUI {
         boolean result = controller.updateFirstName(patientID, name);
         if (result)
             System.out.println("Update completed");
+        else {
+            System.out.println("Patient not in the system,please try again");
+            updateFirstName();
+        }
     }
 
     public void updateLastName() {
@@ -206,6 +209,10 @@ public class PatientUI extends BaseUI {
         boolean result = controller.updateLastName(patientID, name);
         if (result)
             System.out.println("Update completed");
+        else {
+            System.out.println("Patient not in the system,please try again");
+            updateFirstName();
+        }
 
 
     }
@@ -222,6 +229,10 @@ public class PatientUI extends BaseUI {
         boolean result = controller.updateContact(patientID, contact);
         if (result)
             System.out.println("Update completed");
+        else {
+            System.out.println("Patient not in the system,please try again");
+            updateFirstName();
+        }
 
     }
 
@@ -237,6 +248,10 @@ public class PatientUI extends BaseUI {
         boolean result = controller.updateAddress(patientID, address);
         if (result)
             System.out.println("Update completed");
+        else {
+            System.out.println("Patient not in the system,please try again");
+            updateFirstName();
+        }
 
     }
 
@@ -255,6 +270,10 @@ public class PatientUI extends BaseUI {
             boolean result = controller.updateBirthDate(patientID, birthDate);
             if (result) {
                 System.out.println("Update completed");
+            }
+            else {
+                System.out.println("Patient not in the system,please try again");
+                updateFirstName();
             }
 
         } catch (ParseException e) {

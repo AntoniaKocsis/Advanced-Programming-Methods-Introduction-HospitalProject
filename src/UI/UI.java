@@ -15,10 +15,14 @@ public class UI {
     private AppointmentUI appointmentUI;
     private PrescriptionUI prescriptionUI;
 
-    public UI(PatientUI patientUI, MedicationUI medicationUI, DoctorUI doctorUI) {
+    public UI(PatientUI patientUI, MedicationUI medicationUI, DoctorUI doctorUI,DepartmentUI departmentUI,HospitalRoomUI hospitalRoomUI,AppointmentUI appointmentUI,PrescriptionUI prescriptionUI) {
         this.patientUI = patientUI;
         this.medicationUI = medicationUI;
         this.doctorUI = doctorUI;
+        this.departmentUI = departmentUI;
+        this.hospitalRoomUI = hospitalRoomUI;
+        this.appointmentUI = appointmentUI;
+        this.prescriptionUI = prescriptionUI;
     }
 
     public void menu() {
@@ -42,6 +46,7 @@ public class UI {
             switch (choice) {
                 case 1:
                     patientUI.menu();
+                    break;
                 case 2:
                     doctorUI.menu();
                     break;

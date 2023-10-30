@@ -2,9 +2,11 @@ package UI;
 
 import Controller.AppointmentController;
 import Domain.Appointment;
+import Interfaces.AppointmentObserver;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -17,6 +19,65 @@ public class AppointmentUI extends BaseUI {
 
     @Override
     public void menu() {
+        Scanner scanner = new Scanner(System.in);
+        boolean running = true;
+
+        while (running) {
+            System.out.println("----------------------- SEATTLE GRACE HOSPITAL -----------------------");
+            System.out.println("----------------------------- APPOINTMENTS ---------------------------");
+            System.out.println("1. Add Appointment");
+            System.out.println("2. Remove Appointment");
+            System.out.println("3. Update Appointment's info");
+            System.out.println("4. View All Appointments");
+            System.out.println("5.Appointment Observers");
+            System.out.println("6. Return To The Main Page");
+            System.out.println("7. Log Out");
+
+            System.out.print("Select an option: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+            String option;
+            switch (choice) {
+                case 1:
+                    add();
+                    break;
+                case 2:
+                    remove();
+                    break;
+                case 3:
+                    updateInfo();
+                    break;
+                case 4:
+                    viewAll();
+                    break;
+                case 5:
+                    observers();
+                    break;
+                case 6:
+                    running = false;
+                    break;
+
+                case 7:
+                    System.out.println("Exiting the program.");
+                    scanner.close();
+                    System.exit(0);
+                    break;
+
+                default:
+                    System.out.println("Invalid choice. Please select a valid option.");
+            }
+        }
+    }
+    public void observers(){
+        int appointmentID;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Appointment ID:");
+        appointmentID = scanner.nextInt();
+        ArrayList<AppointmentObserver> observers =  controller.appointmentObservers(appointmentID);
+        for(AppointmentObserver observer: observers){
+            System.out.println(observer);
+        }
 
     }
 
@@ -67,7 +128,9 @@ public class AppointmentUI extends BaseUI {
         int appointmentID;
         System.out.println("Appointment ID: ");
         appointmentID = scanner.nextInt();
+        scanner.nextLine();
         Date date;
+        System.out.println("Date (format: yyyy-MM-dd): ");
         String dateInput = scanner.nextLine();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {

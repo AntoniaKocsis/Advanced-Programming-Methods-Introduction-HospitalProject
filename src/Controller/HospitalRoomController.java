@@ -22,13 +22,18 @@ public class HospitalRoomController extends BaseController<HospitalRoom>{
         }
         if(Objects.equals(roomType, "AdmissionRoom")){
             hospitalRoomRepository.add(hospitalRoomFactory.createAdmissionRoom(number));
-            return;
         }
     }
 
     @Override
     public boolean remove(int id) {
-        return hospitalRoomRepository.remove(id);
+
+        for(HospitalRoom room: hospitalRoomRepository.getAll()){
+            if(room.getRoomID() == id){
+                return hospitalRoomRepository.remove(room);
+            }
+        }
+        return false;
     }
 
     @Override

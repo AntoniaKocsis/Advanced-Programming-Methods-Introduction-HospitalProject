@@ -1,21 +1,21 @@
+package Testing;
+
 import Controller.*;
 import Domain.*;
-import UI.*;
 import Repository.*;
+import UI.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Main {
-
+public class Testing {
     public static ArrayList<Patient> PatientRepo(){
         ArrayList<Patient> patients = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
         calendar.set(2003, Calendar.OCTOBER, 28);
         Date date = calendar.getTime();
         Patient patient1 = new Patient("Sarah","Miller",date,"0752134322","Nasaud 16");
-        patients.add(patient1);
         calendar.set(2003,Calendar.JUNE,26);
         date = calendar.getTime();
         Patient patient2 = new Patient("Antonia","Kocsis",date,"0752134333","Dorobantilor 23 ");
@@ -104,11 +104,16 @@ public class Main {
     }
     public static void main(String[] args) {
 
+
         PatientRepository patientRepository = new PatientRepository(PatientRepo());
         PatientController patientController = new PatientController(patientRepository);
         PatientUI patientUI = new PatientUI(patientController);
+        patientUI.menu();
 
-
+        DepartmentRepository departmentRepository = new DepartmentRepository(DepartmentRepo());
+        DoctorRepository doctorRepository  = new DoctorRepository(DoctorRepo());
+        DoctorController doctorController = new DoctorController(doctorRepository,departmentRepository);
+        DoctorUI doctorUI = new DoctorUI(doctorController);
 
         MedicationRepository medicationRepository = new MedicationRepository(MedicationRepo());
         MedicationController medicationController = new MedicationController(medicationRepository);
@@ -118,11 +123,6 @@ public class Main {
         HospitalRoomFactory hospitalRoomFactory = new HospitalRoomFactory();
         HospitalRoomController hospitalRoomController  = new HospitalRoomController(hospitalRoomRepository,hospitalRoomFactory);
         HospitalRoomUI hospitalRoomUI = new HospitalRoomUI(hospitalRoomController);
-
-        DepartmentRepository departmentRepository = new DepartmentRepository(DepartmentRepo());
-        DoctorRepository doctorRepository  = new DoctorRepository(DoctorRepo());
-        DoctorController doctorController = new DoctorController(doctorRepository,departmentRepository);
-        DoctorUI doctorUI = new DoctorUI(doctorController);
 
 
         DepartmentController departmentController = new DepartmentController(departmentRepository,doctorRepository);
@@ -137,7 +137,6 @@ public class Main {
         AppointmentController appointmentController = new AppointmentController(appointmentRepository,patientRepository,doctorRepository,hospitalRoomRepository);
         AppointmentUI appointmentUI = new AppointmentUI(appointmentController);
 
-        UI ui = new UI(patientUI,medicationUI,doctorUI,departmentUI,hospitalRoomUI,appointmentUI,prescriptionUI);
-        ui.menu();
     }
+
 }

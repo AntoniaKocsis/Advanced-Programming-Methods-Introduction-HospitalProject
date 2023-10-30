@@ -7,10 +7,14 @@ public class Department {
     private static int nextID = 1;
     private String name;
 
+    private ArrayList<Doctor> doctors;
+
     public Department(String name) {
         this.name = name;
         this.departmentID = nextID++;
+        doctors = new ArrayList<>();
     }
+
     @Override
     public String toString() {
         return "Department{" +
@@ -18,6 +22,7 @@ public class Department {
                 ", name='" + name + '\'' +
                 '}';
     }
+
     public int getDepartmentID() {
         return departmentID;
     }
@@ -28,5 +33,21 @@ public class Department {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void enrollDoctor(Doctor doctor) {
+        doctors.add(doctor);
+    }
+
+    public ArrayList<Doctor> getDoctors() {
+        return doctors;
+    }
+
+    public void setDoctors(ArrayList<Doctor> doctors) {
+        this.doctors = doctors;
+    }
+
+    public boolean removeDoctor(Doctor doctor) {
+        return doctors.remove(doctor);
     }
 }

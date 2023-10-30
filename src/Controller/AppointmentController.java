@@ -4,6 +4,7 @@ import Domain.Appointment;
 import Domain.Doctor;
 import Domain.ExaminationRoom;
 import Domain.Patient;
+import Interfaces.AppointmentObserver;
 import Repository.AppointmentRepository;
 import Repository.DoctorRepository;
 import Repository.HospitalRoomRepository;
@@ -53,16 +54,35 @@ public class AppointmentController extends BaseController<Appointment> {
     }
 
     public boolean reschedule(int appointmentID, Date date) {
-        return appointmentRepository.reschedule(appointmentID, date);
+        for (Appointment appointment : appointmentRepository.getAll()) {
+            if (appointment.getAppointmentID() == appointmentID) {
+                appointmentRepository.reschedule(appointment, date);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
-    public boolean remove(int id) {
-        return appointmentRepository.remove(id);
+    public boolean remove(int appointmentID) {
+        for (Appointment appointment : appointmentRepository.getAll()) {
+            if (appointment.getAppointmentID() == appointmentID) {
+                return appointmentRepository.remove(appointment);
+            }
+        }
+        return false;
     }
-
     @Override
     public ArrayList<Appointment> getAll() {
         return appointmentRepository.getAll();
+    }
+
+    public ArrayList<AppointmentObserver> appointmentObservers(int appointmentID) {
+        for (Appointment appointment1 : appointmentRepository.getAll()) {
+            if (appointment1.getAppointmentID() == appointmentID) {
+                return appointmentRepository.appointmentObservers(appointment1);
+            }
+        }
+        return new ArrayList<>();
     }
 }

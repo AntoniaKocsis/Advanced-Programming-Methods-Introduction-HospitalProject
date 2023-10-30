@@ -1,5 +1,6 @@
 package Repository;
 
+import Domain.Medication;
 import Domain.Prescription;
 
 import java.util.ArrayList;
@@ -18,18 +19,22 @@ public class PrescriptionRepository extends BaseRepository<Prescription> {
     }
 
     @Override
-    public boolean remove(int id) {
-        for (Prescription prescription : prescriptionsRepository) {
-            if (prescription.getPrescriptionID() == id) {
-                prescriptionsRepository.remove(prescription);
-                return true;
-            }
-        }
-        return false;
+    public boolean remove(Prescription prescription) {
+        return prescriptionsRepository.remove(prescription);
     }
 
     @Override
     public ArrayList<Prescription> getAll() {
         return prescriptionsRepository;
+    }
+    public void addMedication(Prescription prescription,Medication medication){
+        prescription.addMedication(medication);
+
+    }
+    public boolean removeMedication(Prescription prescription,Medication medication){
+        return prescription.removeMedication(medication);
+    }
+    public void setMedicationList(Prescription prescription, ArrayList<Medication> medications){
+        prescription.setMedications(medications);
     }
 }

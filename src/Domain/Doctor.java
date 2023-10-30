@@ -1,5 +1,6 @@
 package Domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 public class Doctor {
     private static int nextID = 1;
@@ -9,6 +10,7 @@ public class Doctor {
     private String contact;
     private String address;
     private Date birthDate;
+    private ArrayList<Department> departments;
 
     public Doctor(String firstName, String lastName, Date birthDate ,String contact,String address) {
         this.firstName = firstName;
@@ -17,6 +19,7 @@ public class Doctor {
         this.birthDate = birthDate;
         this.address = address;
         this.contact = contact;
+        departments = new ArrayList<>();
     }
     @Override
     public String toString() {
@@ -71,5 +74,20 @@ public class Doctor {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public ArrayList<Department> getDepartments() {
+        return departments;
+    }
+
+    public void setDepartments(ArrayList<Department> departments) {
+        this.departments = departments;
+    }
+
+    public void enrollInDepartment(Department department){
+        departments.add(department);
+    }
+    public boolean removeDepartment(Department department){
+       return departments.remove(department);
     }
 }

@@ -11,39 +11,26 @@ public class MedicationRepository extends BaseRepository<Medication> {
         super();
         this.medicationRepository = new ArrayList<>();
     }
-
+    public MedicationRepository(ArrayList<Medication> medications){
+        super();
+        medicationRepository = medications;
+    }
     @Override
     public void add(Medication item) {
         medicationRepository.add(item);
     }
 
     @Override
-    public boolean remove(int id) {
-        for (Medication medication : medicationRepository) {
-            if (medication.getMedicationID() == id) {
-                medicationRepository.remove(medication);
-                return true;
-            }
-        }
-        return false;
+    public boolean remove(Medication medication) {
+        return medicationRepository.remove(medication);
     }
 
-    public boolean updateName(int id, String name) {
-        for (Medication medication : medicationRepository) {
-            if (medication.getMedicationID() == id) {
-                medication.setName(name);
-            }
-        }
-        return false;
+    public void updateName(Medication medication, String name) {
+        medication.setName(name);
     }
 
-    public boolean updateConcentration(int id, int concentration) {
-        for (Medication medication : medicationRepository) {
-            if (medication.getMedicationID() == id) {
-                medication.setConcentration(concentration);
-            }
-        }
-        return false;
+    public void updateConcentration(Medication medication, int concentration) {
+        medication.setConcentration(concentration);
     }
 
     @Override

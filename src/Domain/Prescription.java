@@ -10,11 +10,14 @@ public class Prescription {
     private Patient patient;
     private Date date;
 
+    private ArrayList<Medication> medications;
+
     public Prescription(Doctor doctor, Patient patient, Date date) {
         this.doctor = doctor;
         this.patient = patient;
         this.date = date;
         this.prescriptionID = nextID++;
+        medications = new ArrayList<>();
     }
 
     @Override
@@ -26,7 +29,19 @@ public class Prescription {
                 ", date=" + date +
                 '}';
     }
+    public ArrayList<Medication> getMedications() {
+        return medications;
+    }
+    public void addMedication(Medication medication){
+        medications.add(medication);
 
+    }
+    public boolean removeMedication(Medication medication){
+        return medications.remove(medication);
+    }
+    public void setMedications(ArrayList<Medication> medications) {
+        this.medications = medications;
+    }
     public int getPrescriptionID() {
         return prescriptionID;
     }

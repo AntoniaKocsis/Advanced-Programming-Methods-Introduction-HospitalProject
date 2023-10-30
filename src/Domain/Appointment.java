@@ -17,12 +17,11 @@ public class Appointment {
     private ArrayList<AppointmentObserver> observers = new ArrayList<>();
 
     public Appointment(Patient patient, Doctor doctor, Date date, ExaminationRoom room) {
-        this.patient = patient;
-        this.doctor = doctor;
-        this.date = date;
-        this.room = room;
-        this.appointmentID = nextID++;
-        notifyObservers();
+            this.patient = patient;
+            this.doctor = doctor;
+            this.date = date;
+            this.room = room;
+            this.appointmentID = nextID++;
     }
 
     public int getAppointmentID() {
@@ -35,7 +34,6 @@ public class Appointment {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
-        notifyObservers();
     }
 
     public Doctor getDoctor() {
@@ -44,7 +42,6 @@ public class Appointment {
 
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
-        notifyObservers();
     }
 
     public Date getDate() {
@@ -52,8 +49,8 @@ public class Appointment {
     }
 
     public void setDate(Date date) {
-        this.date = date;
-        notifyObservers();
+            this.date = date;
+
     }
 
     public ExaminationRoom getRoom() {
@@ -81,9 +78,13 @@ public class Appointment {
     public void removeObserver(AppointmentObserver observer) {
         observers.remove(observer);
     }
-    private void notifyObservers() {
+    public void notifyObservers() {
         for (AppointmentObserver observer : observers) {
             observer.update(this);
         }
+    }
+
+    public ArrayList<AppointmentObserver> getObservers() {
+        return observers;
     }
 }
