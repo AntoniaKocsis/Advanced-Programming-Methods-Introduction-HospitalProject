@@ -23,65 +23,20 @@ public class DepartmentController extends BaseController<Department> {
     }
 
     public boolean enrollDoctor(int departmentID, int doctorID) {
-        Department department = null;
-        Doctor doctor = null;
-        for (Department department1 : departmentRepository.getAll()) {
-            if (department1.getDepartmentID() == departmentID)
-                department = department1;
-        }
-        for (Doctor doctor1 : doctorRepository.getAll()) {
-            if (doctor1.getDoctorID() == doctorID) {
-                doctor = doctor1;
-            }
-        }
-        if (doctor == null || department == null)
-            return false;
-        departmentRepository.enrollDoctor(department,doctor);
-        return true;
+            return departmentRepository.enrollDoctor(departmentID,doctorID,doctorRepository);
     }
 
     public boolean removeDoctor(int departmentID, int doctorID) {
-        Department department = null;
-        Doctor doctor = null;
-        for (Department department1 : departmentRepository.getAll()) {
-            if (department1.getDepartmentID() == departmentID) {
-                department = department1;
-                break;
-            }
-        }
-        for (Doctor doctor1 : doctorRepository.getAll()) {
-            if (doctor1.getDoctorID() == doctorID) {
-                doctor = doctor1;
-                break;
-            }
-        }
-        if (doctor == null || department == null) {
-            return false;
-        }
-       departmentRepository.removeDoctor(department, doctor);
-        return true;
+        return departmentRepository.removeDoctor(departmentID,doctorID,doctorRepository);
     }
 
     public boolean updateName(int id, String name) {
-        for(Department department : departmentRepository.getAll()){
-            if(department.getDepartmentID() == id) {
-                departmentRepository.updateName(department,name);
-                return true;
-            }
-        }
-        return false;
-
+        return departmentRepository.updateName(id,name);
     }
 
     @Override
     public boolean remove(int id) {
-
-        for (Department department : departmentRepository.getAll()) {
-            if (department.getDepartmentID() == id) {
-                return departmentRepository.remove(department);
-            }
-        }
-        return false;
+        return departmentRepository.remove(id);
     }
 
     @Override
@@ -90,16 +45,8 @@ public class DepartmentController extends BaseController<Department> {
     }
 
     public ArrayList<Doctor> getEnrolledDoctors(int departmentID) {
-        Department department1 = null;
-        for (Department department : getAll()) {
-            if (department.getDepartmentID() == departmentID) {
-                department1 = department;
-                break;
-            }
-        }
-        if (department1 == null)
-            return new ArrayList<>();
-        return departmentRepository.getEnrolledDoctors(department1);
+
+        return departmentRepository.getEnrolledDoctors(departmentID);
 
     }
 }

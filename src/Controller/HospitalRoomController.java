@@ -27,13 +27,7 @@ public class HospitalRoomController extends BaseController<HospitalRoom>{
 
     @Override
     public boolean remove(int id) {
-
-        for(HospitalRoom room: hospitalRoomRepository.getAll()){
-            if(room.getRoomID() == id){
-                return hospitalRoomRepository.remove(room);
-            }
-        }
-        return false;
+        return hospitalRoomRepository.remove(id);
     }
 
     @Override

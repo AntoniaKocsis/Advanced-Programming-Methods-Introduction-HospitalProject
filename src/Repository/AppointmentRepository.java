@@ -30,15 +30,36 @@ public class AppointmentRepository extends BaseRepository<Appointment> {
         appointmentRepository.add(appointment);
         appointment.notifyObservers();
     }
-    public boolean remove(Appointment appointment) {
+    public Appointment findByID(int ID){
+        Appointment appointment = null;
+        for(Appointment appointment1:appointmentRepository){
+            if(appointment1.getAppointmentID() == ID){
+                appointment = appointment1;
+                break;
+            }
+        }
+        return appointment;
+    }
+    public boolean remove(int appointmentID) {
+
+        Appointment appointment = findByID(appointmentID);
+        if(appointment == null)
+            return false;
         return appointmentRepository.remove(appointment);
     }
 
-    public void reschedule(Appointment appointment, Date date) {
+    public boolean reschedule(int appointmentID, Date date) {
+        Appointment appointment = findByID(appointmentID);
+        if(appointment == null)
+            return false;
         appointment.setDate(date);
         appointment.notifyObservers();
+        return true;
     }
-    public ArrayList<AppointmentObserver> appointmentObservers(Appointment appointment){
+    public ArrayList<AppointmentObserver> appointmentObservers(int appointmentID){
+        Appointment appointment = findByID(appointmentID);
+        if(appointment == null)
+            return new ArrayList<>();
         return appointment.getObservers();
     }
 }

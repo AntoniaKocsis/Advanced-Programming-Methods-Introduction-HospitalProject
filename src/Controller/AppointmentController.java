@@ -1,9 +1,6 @@
 package Controller;
 
-import Domain.Appointment;
-import Domain.Doctor;
-import Domain.ExaminationRoom;
-import Domain.Patient;
+import Domain.*;
 import Interfaces.AppointmentObserver;
 import Repository.AppointmentRepository;
 import Repository.DoctorRepository;
@@ -28,49 +25,20 @@ public class AppointmentController extends BaseController<Appointment> {
     }
 
     public void add(int patientID, int doctorID, Date date, int examinationRoomID) {
-        Patient patient = null;
-        Doctor doctor = null;
-        ExaminationRoom examinationRoom = null;
-        for (Patient patient1 : patientRepository.getAll()) {
-            if (patient1.getPatientID() == patientID) {
-                patient = patient1;
-                break;
-            }
-        }
-        for (Doctor doctor1 : doctorRepository.getAll()) {
-            if (doctor1.getDoctorID() == doctorID) {
-                doctor = doctor1;
-                break;
-            }
-        }
-        for (ExaminationRoom examinationRoom1 : examinationRoomRepository.getAllExaminationRooms()) {
-            if (examinationRoom1.getRoomID() == examinationRoomID) {
-                examinationRoom = examinationRoom1;
-                break;
-            }
-        }
-        Appointment appointment = new Appointment(patient, doctor, date, examinationRoom);
+        Patient patient = patientRepository.findByID(patientID);
+        Doctor doctor = doctorRepository.findByID(doctorID);
+        HospitalRoom examinationRoom = examinationRoomRepository.findByID(examinationRoomID);
+        Appointment appointment = new Appointment(patient, doctor, date, (ExaminationRoom)examinationRoom);
         appointmentRepository.add(appointment);
     }
 
     public boolean reschedule(int appointmentID, Date date) {
-        for (Appointment appointment : appointmentRepository.getAll()) {
-            if (appointment.getAppointmentID() == appointmentID) {
-                appointmentRepository.reschedule(appointment, date);
-                return true;
-            }
-        }
-        return false;
+        return appointmentRepository.reschedule(appointmentID,date);
     }
 
     @Override
     public boolean remove(int appointmentID) {
-        for (Appointment appointment : appointmentRepository.getAll()) {
-            if (appointment.getAppointmentID() == appointmentID) {
-                return appointmentRepository.remove(appointment);
-            }
-        }
-        return false;
+        return appointmentRepository.remove(appointmentID);
     }
     @Override
     public ArrayList<Appointment> getAll() {
@@ -78,11 +46,6 @@ public class AppointmentController extends BaseController<Appointment> {
     }
 
     public ArrayList<AppointmentObserver> appointmentObservers(int appointmentID) {
-        for (Appointment appointment1 : appointmentRepository.getAll()) {
-            if (appointment1.getAppointmentID() == appointmentID) {
-                return appointmentRepository.appointmentObservers(appointment1);
-            }
-        }
-        return new ArrayList<>();
+        return appointmentRepository.appointmentObservers(appointmentID);
     }
 }

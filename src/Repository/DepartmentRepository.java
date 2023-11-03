@@ -18,26 +18,47 @@ public class DepartmentRepository extends BaseRepository<Department> {
         departmentRepository = departments;
 
     }
+    public Department findByID(int departmentID){
+        Department department = null;
+        for(Department department1: departmentRepository){
+            if(department1.getDepartmentID() == departmentID){
+                department = department1;
+                break;
+            }
+        }
+        return department;
+    }
 
     @Override
     public void add(Department item) {
         departmentRepository.add(item);
     }
 
-    public void enrollDoctor(Department department, Doctor doctor) {
+    public boolean enrollDoctor(int departmentID,int doctorID,DoctorRepository doctorRepository) {
+        Department department = findByID(departmentID);
+        Doctor doctor = doctorRepository.findByID(doctorID);
+        if(department == null || doctor == null)
+            return false;
         if (!department.getDoctors().contains(doctor))
             department.enrollDoctor(doctor);
         if (!doctor.getDepartments().contains(department))
             doctor.enrollInDepartment(department);
+        return true;
     }
 
-    public void removeDoctor(Department department, Doctor doctor) {
+    public boolean removeDoctor(int departmentID,int doctorID,DoctorRepository doctorRepository) {
+        Department department = findByID(departmentID);
+        Doctor doctor = doctorRepository.findByID(doctorID);
+        if(department == null || doctor == null)
+            return false;
         department.removeDoctor(doctor);
         doctor.removeDepartment(department);
+        return true;
     }
 
     @Override
-    public boolean remove(Department department) {
+    public boolean remove(int id) {
+        Department department = findByID(id);
         return departmentRepository.remove(department);
     }
 
@@ -46,11 +67,18 @@ public class DepartmentRepository extends BaseRepository<Department> {
         return departmentRepository;
     }
 
-    public void updateName(Department department, String name) {
+    public boolean updateName(int departmentID, String name) {
+        Department department = findByID(departmentID);
+        if(department == null)
+            return false;
         department.setName(name);
+        return true;
     }
 
-    public ArrayList<Doctor> getEnrolledDoctors(Department department) {
+    public ArrayList<Doctor> getEnrolledDoctors(int departmentID) {
+        Department department = findByID(departmentID);
+        if (department == null)
+            return new ArrayList<>();
         return department.getDoctors();
     }
 }

@@ -20,68 +20,32 @@ public class PatientController extends BaseController<Patient> {
     }
 
     public boolean remove(int patientID) {
-
-        for (Patient patient : patientRepository.getAll()) {
-            if (patient.getPatientID() == patientID) {
-                return patientRepository.remove(patient);
-            }
-        }
-        return false;
+        return patientRepository.remove(patientID);
     }
 
 
 
     public boolean updateFirstName(int ID, String name) {
-        for (Patient patient2 : patientRepository.getAll()) {
-            if (patient2.getPatientID() == ID) {
-               patientRepository.updateFirstName(patient2,name);
-                return true;
-            }
-        }
-        return false;
+        return patientRepository.updateFirstName(ID,name);
 
     }
 
 
     public boolean updateLastName(int ID, String name) {
-        for (Patient patient2 : patientRepository.getAll()) {
-            if (patient2.getPatientID() == ID) {
-                patientRepository.updateLastName(patient2,name);
-                return true;
-            }
-        }
-        return false;
+        return patientRepository.updateLastName(ID,name);
     }
 
     public boolean updateBirthDate(int ID, Date date) {
-        for (Patient patient2 : patientRepository.getAll()) {
-            if (patient2.getPatientID() == ID) {
-                patientRepository.updateBirthDate(patient2,date);
-                return true;
-            }
-        }
-        return false;
+        return patientRepository.updateBirthDate(ID,date);
     }
 
 
     public boolean updateContact(int ID, String contact) {
-        for (Patient patient2 : patientRepository.getAll()) {
-            if (patient2.getPatientID() == ID) {
-               patientRepository.updateContact(patient2,contact);
-                return true;
-            }
-        }
-        return false;
+        return patientRepository.updateContact(ID,contact);
     }
 
     public boolean updateAddress(int ID, String address) {
-        for (Patient patient2 : patientRepository.getAll()) {
-            if (patient2.getPatientID() == ID) {
-                patientRepository.updateAddress(patient2,address);
-                return true;
-            }
-        }
-        return false;
+        return patientRepository.updateAddress(ID,address);
 
     }
 

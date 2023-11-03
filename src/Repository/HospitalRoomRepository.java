@@ -7,7 +7,6 @@ import Domain.HospitalRoom;
 import java.util.ArrayList;
 
 public class HospitalRoomRepository extends BaseRepository<HospitalRoom>{
-    // ?? add HospitalFactory instance
     private ArrayList<HospitalRoom> roomsRepository;
 
     public HospitalRoomRepository() {
@@ -19,14 +18,26 @@ public class HospitalRoomRepository extends BaseRepository<HospitalRoom>{
         roomsRepository = rooms;
 
     }
-
+    public HospitalRoom findByID(int id){
+        HospitalRoom hospitalRoom = null;
+        for(HospitalRoom room: roomsRepository){
+            if(room.getRoomID() == id){
+                hospitalRoom = room;
+                break;
+            }
+        }
+        return hospitalRoom;
+    }
     @Override
     public void add(HospitalRoom item) {
         roomsRepository.add(item);
     }
 
     @Override
-    public boolean remove(HospitalRoom hospitalRoom) {
+    public boolean remove(int hospitalRoomID) {
+        HospitalRoom hospitalRoom = findByID(hospitalRoomID);
+        if(hospitalRoom == null)
+            return false;
         return roomsRepository.remove(hospitalRoom);
     }
 

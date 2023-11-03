@@ -12,9 +12,20 @@ public class PatientRepository extends BaseRepository<Patient> {
         super();
         this.patientRepository = new ArrayList<>();
     }
-    public PatientRepository(ArrayList<Patient> patients){
+
+    public PatientRepository(ArrayList<Patient> patients) {
         super();
         patientRepository = patients;
+    }
+    public Patient findByID(int id){
+        Patient patient = null;
+        for (Patient patient1 : patientRepository) {
+            if (patient.getPatientID() == id) {
+                patient = patient1;
+                break;
+            }
+        }
+        return patient;
     }
     @Override
     public void add(Patient patient) {
@@ -22,31 +33,55 @@ public class PatientRepository extends BaseRepository<Patient> {
     }
 
     @Override
-    public boolean remove(Patient patient) {
+    public boolean remove(int id) {
+        Patient patient = findByID(id);
+        if(patient == null)
+            return false;
         return patientRepository.remove(patient);
     }
 
-
-    public void updateFirstName(Patient patient, String name) {
+    public boolean updateFirstName(int ID, String name) {
+        Patient patient = findByID(ID);
+        if(patient == null)
+            return false;
         patient.setFirstName(name);
+        return true;
+    }
+
+    public boolean updateLastName(int ID, String name) {
+        Patient patient = findByID(ID);
+        if(patient == null)
+            return false;
+        patient.setLastName(name);
+        return true;
 
     }
 
-    public void updateLastName(Patient patient, String name) {
-        patient.setFirstName(name);
-    }
-
-    public void updateBirthDate(Patient patient, Date date) {
+    public boolean updateBirthDate(int ID, Date date) {
+        Patient patient = findByID(ID);
+        if(patient == null)
+            return false;
         patient.setBirthDate(date);
+        return true;
     }
 
 
-    public void updateContact(Patient patient, String contact) {
+    public boolean updateContact(int ID, String contact) {
+        Patient patient = findByID(ID);
+        if(patient == null)
+            return false;
         patient.setContact(contact);
+        return true;
+
     }
 
-    public void updateAddress(Patient patient, String address) {
-       patient.setAddress(address);
+    public boolean updateAddress(int ID, String address) {
+        Patient patient = findByID(ID);
+        if(patient == null)
+            return false;
+        patient.setAddress(address);
+        return true;
+
     }
 
     @Override

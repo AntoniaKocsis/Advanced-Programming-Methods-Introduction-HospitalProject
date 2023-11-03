@@ -25,97 +25,22 @@ public class PrescriptionController extends BaseController<Prescription>{
         this.medicationRepository = medicationRepository;
     }
     public boolean addMedication(int prescriptionID,int medicationID){
-        Prescription prescription = null;
-        Medication medication = null;
-        for(Prescription prescription1:prescriptionRepository.getAll()){
-            if(prescription1.getPrescriptionID() == prescriptionID){
-                prescription = prescription1;
-                break;
-            }
-        }
-        for(Medication medication1 : medicationRepository.getAll()){
-            if(medication1.getMedicationID() == medicationID){
-                medication = medication1;
-                break;
-            }
-        }
-        if(prescription == null || medication == null)
-            return false;
-        prescriptionRepository.addMedication(prescription,medication);
-        return true;
+        return prescriptionRepository.addMedication(prescriptionID,medicationID,medicationRepository);
     }
     public boolean removeMedication(int prescriptionID,int medicationID){
-        Prescription prescription = null;
-        Medication medication = null;
-        for(Prescription prescription1:prescriptionRepository.getAll()){
-            if(prescription1.getPrescriptionID() == prescriptionID){
-                prescription = prescription1;
-                break;
-            }
-        }
-        for(Medication medication1 : medicationRepository.getAll()){
-            if(medication1.getMedicationID() == medicationID){
-                medication = medication1;
-                break;
-            }
-        }
-        if(prescription == null || medication == null)
-            return false;
-        prescriptionRepository.removeMedication(prescription,medication);
-        return true;
+        return prescriptionRepository.removeMedication(prescriptionID,medicationID,medicationRepository);
     }
     public boolean setMedicationList(int prescriptionID,ArrayList<Integer> medicationIDList ){
-        Prescription prescription = null;
-        ArrayList<Medication> medications = new ArrayList<>();
-        for(Prescription prescription1:prescriptionRepository.getAll()){
-            if(prescription1.getPrescriptionID() == prescriptionID){
-                prescription = prescription1;
-                break;
-            }
-        }
-        if(prescription == null)
-            return false;
-        ArrayList<Integer> ids = new ArrayList<>();
-        for(Medication medication:medicationRepository.getAll()){
-            if(medicationIDList.contains(medication.getMedicationID())){
-                medications.add(medication);
-            }
-            ids.add(medication.getMedicationID());
-        }
-        for(Integer id: medicationIDList){
-            if(!ids.contains(id)){
-                return false;
-            }
-        }
-        prescriptionRepository.setMedicationList(prescription,medications);
-        return true;
-
-
+        return prescriptionRepository.setMedicationList(prescriptionID,medicationIDList,medicationRepository);
     }
 
 
     public boolean add(int doctorID, int patientID, Date date){
-        Patient patient2 = null;
-        Doctor doctor2 = null;
-        boolean foundP = false;
-        boolean foundD = false;
-        for(Patient patient: patientRepository.getAll()){
-            if(patient.getPatientID() == patientID){
-                patient2 = patient;
-                foundP = true;
-                break;
-            }
-        }
-        for(Doctor doctor: doctorRepository.getAll()){
-            if(doctor.getDoctorID() == doctorID){
-                doctor2 = doctor;
-                foundD = true;
-                break;
-            }
-        }
-        if(!foundP || !foundD)
+        Patient patient = patientRepository.findByID(patientID);
+        Doctor doctor = doctorRepository.findByID(doctorID);
+        if(patient == null || doctor == null)
             return false;
-        Prescription prescription = new Prescription(doctor2,patient2,date);
+        Prescription prescription = new Prescription(doctor,patient,date);
         prescriptionRepository.add(prescription);
         return true;
     }
@@ -123,12 +48,7 @@ public class PrescriptionController extends BaseController<Prescription>{
 
     @Override
     public boolean remove(int id) {
-        for (Prescription prescription : prescriptionRepository.getAll()) {
-            if (prescription.getPrescriptionID() == id) {
-                return prescriptionRepository.remove(prescription);
-            }
-        }
-        return false;
+        return prescriptionRepository.remove(id);
     }
 
     @Override

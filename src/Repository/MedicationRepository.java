@@ -15,22 +15,43 @@ public class MedicationRepository extends BaseRepository<Medication> {
         super();
         medicationRepository = medications;
     }
+    public Medication findByID(int id){
+        Medication medication = null;
+        for(Medication medication1:medicationRepository){
+            if(medication1.getMedicationID() == id){
+                medication = medication1;
+                break;
+            }
+        }
+        return medication;
+    }
     @Override
     public void add(Medication item) {
         medicationRepository.add(item);
     }
 
     @Override
-    public boolean remove(Medication medication) {
+    public boolean remove(int medicationID) {
+        Medication medication = findByID(medicationID);
+        if(medication == null)
+            return false;
         return medicationRepository.remove(medication);
     }
 
-    public void updateName(Medication medication, String name) {
+    public boolean updateName(int medicationID, String name) {
+        Medication medication = findByID(medicationID);
+        if(medication == null)
+            return false;
         medication.setName(name);
+        return true;
     }
 
-    public void updateConcentration(Medication medication, int concentration) {
+    public boolean updateConcentration(int medicationID, int concentration) {
+        Medication medication = findByID(medicationID);
+        if(medication == null)
+            return false;
         medication.setConcentration(concentration);
+        return true;
     }
 
     @Override

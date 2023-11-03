@@ -40,7 +40,6 @@ public class DoctorUI extends BaseUI {
 
             int choice = scanner.nextInt();
             scanner.nextLine();
-            String option;
             switch (choice) {
                 case 1:
                     add();
