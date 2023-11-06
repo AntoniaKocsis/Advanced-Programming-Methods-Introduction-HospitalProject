@@ -1,7 +1,7 @@
 package Repository;
 
-import Domain.Department;
-import Domain.Doctor;
+import Domain.HospitalConfiguration.Department;
+import Domain.HospitalStaff.Doctor;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -145,5 +145,47 @@ public class DoctorRepository extends BaseRepository<Doctor> {
             return new ArrayList<>();
         }
         return doctor.getDepartments();
+    }
+    public boolean setDoctorOnCall(int id){
+        Doctor doctor = findByID(id);
+        if(doctor == null)
+            return false;
+        doctor.setOnCall(true);
+        return true;
+
+    }
+    public boolean setDoctorsOnCall(ArrayList<Integer> ids){
+        for(int id:ids){
+            Doctor doctor = findByID(id);
+            if(doctor == null)
+                return false;
+            doctor.setOnCall(true);
+        }
+        return true;
+    }
+    public boolean setDoctorOffCall(int id){
+        Doctor doctor = findByID(id);
+        if(doctor == null)
+            return false;
+        doctor.setOnCall(false);
+        return true;
+    }
+    public boolean setDoctorsOffCall(ArrayList<Integer> ids){
+        for(int id:ids){
+            Doctor doctor = findByID(id);
+            if(doctor == null)
+                return false;
+            doctor.setOnCall(false);
+        }
+        return true;
+    }
+    public ArrayList<Doctor> getOnCallDoctors(){
+        ArrayList<Doctor> doctors = new ArrayList<>();
+        for(Doctor doctor:doctorRepository){
+            if(doctor.isOnCall()){
+                doctors.add(doctor);
+            }
+        }
+        return doctors;
     }
 }

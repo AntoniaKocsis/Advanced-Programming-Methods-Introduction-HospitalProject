@@ -1,6 +1,6 @@
-package Domain;
+package Domain.HospitalStaff;
 
-import PatientState.PatientCondition;
+import Domain.HospitalConfiguration.Department;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,6 +12,7 @@ public class Doctor {
     private String contact;
     private String address;
     private Date birthDate;
+    private boolean onCall;
     private ArrayList<Department> departments;
 
     public Doctor(String firstName, String lastName, Date birthDate ,String contact,String address) {
@@ -92,4 +93,12 @@ public class Doctor {
     public boolean removeDepartment(Department department){
        return departments.remove(department);
     }
+    public boolean isOnCall() {
+        return onCall;
+    }
+
+    public void setOnCall(boolean onCall) {
+        this.onCall = onCall;
+    }
+
 }

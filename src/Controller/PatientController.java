@@ -1,6 +1,6 @@
 package Controller;
 
-import Domain.Patient;
+import Domain.Beneficiaries.Patient;
 import Repository.PatientRepository;
 
 import java.util.ArrayList;

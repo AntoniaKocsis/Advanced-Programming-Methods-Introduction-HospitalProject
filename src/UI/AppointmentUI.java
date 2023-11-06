@@ -1,7 +1,7 @@
 package UI;
 
 import Controller.AppointmentController;
-import Domain.Appointment;
+import Domain.HospitalServices.Appointment;
 import Interfaces.AppointmentObserver;
 
 import java.text.ParseException;
@@ -29,7 +29,7 @@ public class AppointmentUI extends BaseUI {
             System.out.println("2. Remove Appointment");
             System.out.println("3. Update Appointment's info");
             System.out.println("4. View All Appointments");
-            System.out.println("5.Appointment Observers");
+            System.out.println("5. Appointment Observers");
             System.out.println("6. Return To The Main Page");
             System.out.println("7. Log Out");
 
@@ -37,7 +37,6 @@ public class AppointmentUI extends BaseUI {
 
             int choice = scanner.nextInt();
             scanner.nextLine();
-            String option;
             switch (choice) {
                 case 1:
                     add();
@@ -69,13 +68,14 @@ public class AppointmentUI extends BaseUI {
             }
         }
     }
-    public void observers(){
+
+    public void observers() {
         int appointmentID;
         Scanner scanner = new Scanner(System.in);
         System.out.println("Appointment ID:");
         appointmentID = scanner.nextInt();
-        ArrayList<AppointmentObserver> observers =  controller.appointmentObservers(appointmentID);
-        for(AppointmentObserver observer: observers){
+        ArrayList<AppointmentObserver> observers = controller.appointmentObservers(appointmentID);
+        for (AppointmentObserver observer : observers) {
             System.out.println(observer);
         }
 
@@ -89,6 +89,7 @@ public class AppointmentUI extends BaseUI {
         int doctorID;
         int patientID;
         int roomID;
+        String condition;
         System.out.println("Patient ID: ");
         patientID = scanner.nextInt();
         scanner.nextLine();
@@ -103,9 +104,14 @@ public class AppointmentUI extends BaseUI {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
             date = dateFormat.parse(dateInput);
-            controller.add(patientID, doctorID, date, roomID);
+            boolean result = controller.add(patientID, doctorID, date, roomID);
+            if (!result) {
+                System.out.println("Invalid data, please try again!");
+                add();
+            }
         } catch (ParseException e) {
             System.out.println("Invalid date format. Please use yyyy-MM-dd.");
+            add();
         }
         System.out.println("Appointment was added successfully!");
     }
@@ -120,6 +126,10 @@ public class AppointmentUI extends BaseUI {
         boolean result = controller.remove(appointmentID);
         if (result)
             System.out.println("Removal completed");
+        else {
+            System.out.println("Invalid data! Please try again!");
+            remove();
+        }
     }
 
     @Override
@@ -135,7 +145,11 @@ public class AppointmentUI extends BaseUI {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
             date = dateFormat.parse(dateInput);
-            controller.reschedule(appointmentID, date);
+            if (!controller.reschedule(appointmentID, date)){
+                System.out.println("Invalid data! Please try again!");
+                updateInfo();
+            }
+
         } catch (ParseException e) {
             System.out.println("Invalid date format. Please use yyyy-MM-dd.");
         }

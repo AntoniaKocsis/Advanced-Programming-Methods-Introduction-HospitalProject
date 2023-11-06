@@ -1,9 +1,5 @@
 package UI;
 
-import Domain.HospitalRoom;
-import Domain.Prescription;
-
-import java.util.Objects;
 import java.util.Scanner;
 
 public class UI {
@@ -14,8 +10,9 @@ public class UI {
     private HospitalRoomUI hospitalRoomUI;
     private AppointmentUI appointmentUI;
     private PrescriptionUI prescriptionUI;
+    private EmergencyRoomUI emergencyRoomUI;
 
-    public UI(PatientUI patientUI, MedicationUI medicationUI, DoctorUI doctorUI,DepartmentUI departmentUI,HospitalRoomUI hospitalRoomUI,AppointmentUI appointmentUI,PrescriptionUI prescriptionUI) {
+    public UI(PatientUI patientUI, MedicationUI medicationUI, DoctorUI doctorUI,DepartmentUI departmentUI,HospitalRoomUI hospitalRoomUI,AppointmentUI appointmentUI,PrescriptionUI prescriptionUI,EmergencyRoomUI emergencyRoomUI) {
         this.patientUI = patientUI;
         this.medicationUI = medicationUI;
         this.doctorUI = doctorUI;
@@ -23,6 +20,7 @@ public class UI {
         this.hospitalRoomUI = hospitalRoomUI;
         this.appointmentUI = appointmentUI;
         this.prescriptionUI = prescriptionUI;
+        this.emergencyRoomUI = emergencyRoomUI;
     }
 
     public void menu() {
@@ -37,7 +35,8 @@ public class UI {
             System.out.println("5. Prescriptions");
             System.out.println("6. Departments");
             System.out.println("7. Hospital Rooms");
-            System.out.println("8. Exit");
+            System.out.println("8. Emergency Room");
+            System.out.println("9. Exit");
             System.out.print("Select an option: ");
 
             int choice = scanner.nextInt();
@@ -66,6 +65,9 @@ public class UI {
                     hospitalRoomUI.menu();
                     break;
                 case 8:
+                    emergencyRoomUI.menu();
+                    break;
+                case 9:
                     System.out.println("Exiting the program.");
                     scanner.close();
                     System.exit(0);

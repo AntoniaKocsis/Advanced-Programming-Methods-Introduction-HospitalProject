@@ -1,6 +1,7 @@
-package Domain;
+package Domain.Observer;
 
-import Domain.Appointment;
+import Domain.HospitalServices.Appointment;
+import Domain.Beneficiaries.Patient;
 import Interfaces.AppointmentObserver;
 
 public class PatientNotificationSystem implements AppointmentObserver {

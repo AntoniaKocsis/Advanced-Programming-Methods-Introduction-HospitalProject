@@ -1,7 +1,7 @@
 package Controller;
 
-import Domain.Department;
-import Domain.Doctor;
+import Domain.HospitalConfiguration.Department;
+import Domain.HospitalStaff.Doctor;
 import Repository.DepartmentRepository;
 import Repository.DoctorRepository;
 
@@ -73,5 +73,21 @@ public class DoctorController extends BaseController<Doctor> {
 
     public ArrayList<Department> getDepartments(int doctorID) {
         return doctorRepository.getDepartments(doctorID);
+    }
+
+    public boolean setDoctorOnCall(int id){
+        return doctorRepository.setDoctorOnCall(id);
+    }
+    public boolean setDoctorsOnCall(ArrayList<Integer> ids){
+        return doctorRepository.setDoctorsOnCall(ids);
+    }
+    public boolean setDoctorOffCall(int id){
+        return doctorRepository.setDoctorOffCall(id);
+    }
+    public boolean setDoctorsOffCall(ArrayList<Integer> ids){
+        return doctorRepository.setDoctorsOffCall(ids);
+    }
+    public ArrayList<Doctor> getOnCallDoctors(){
+        return doctorRepository.getOnCallDoctors();
     }
 }

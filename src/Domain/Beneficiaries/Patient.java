@@ -1,4 +1,4 @@
-package Domain;
+package Domain.Beneficiaries;
 
 import java.util.Date;
 

@@ -1,5 +1,13 @@
 import Controller.*;
-import Domain.*;
+import Domain.Beneficiaries.Patient;
+import Domain.Factory.HospitalRoomFactory;
+import Domain.HospitalConfiguration.AdmissionRoom;
+import Domain.HospitalConfiguration.Department;
+import Domain.HospitalConfiguration.ExaminationRoom;
+import Domain.HospitalConfiguration.HospitalRoom;
+import Domain.HospitalServices.Medication;
+import Domain.HospitalStaff.Doctor;
+import Domain.Singleton.EmergencyRoom;
 import UI.*;
 import Repository.*;
 
@@ -105,39 +113,39 @@ public class Main {
     public static void main(String[] args) {
 
         PatientRepository patientRepository = new PatientRepository(PatientRepo());
-        PatientController patientController = new PatientController(patientRepository);
-        PatientUI patientUI = new PatientUI(patientController);
-
-
-
         MedicationRepository medicationRepository = new MedicationRepository(MedicationRepo());
-        MedicationController medicationController = new MedicationController(medicationRepository);
-        MedicationUI medicationUI = new MedicationUI(medicationController);
-
         HospitalRoomRepository hospitalRoomRepository = new HospitalRoomRepository(HospitalRepo());
-        HospitalRoomFactory hospitalRoomFactory = new HospitalRoomFactory();
-        HospitalRoomController hospitalRoomController  = new HospitalRoomController(hospitalRoomRepository,hospitalRoomFactory);
-        HospitalRoomUI hospitalRoomUI = new HospitalRoomUI(hospitalRoomController);
-
         DepartmentRepository departmentRepository = new DepartmentRepository(DepartmentRepo());
         DoctorRepository doctorRepository  = new DoctorRepository(DoctorRepo());
-        DoctorController doctorController = new DoctorController(doctorRepository,departmentRepository);
-        DoctorUI doctorUI = new DoctorUI(doctorController);
-
-
-        DepartmentController departmentController = new DepartmentController(departmentRepository,doctorRepository);
-        DepartmentUI departmentUI = new DepartmentUI(departmentController);
-
         PrescriptionRepository prescriptionRepository = new PrescriptionRepository();
-        PrescriptionController prescriptionController = new PrescriptionController(prescriptionRepository,patientRepository,doctorRepository,medicationRepository);
-        PrescriptionUI prescriptionUI = new PrescriptionUI(prescriptionController);
-
-
         AppointmentRepository appointmentRepository = new AppointmentRepository();
-        AppointmentController appointmentController = new AppointmentController(appointmentRepository,patientRepository,doctorRepository,hospitalRoomRepository);
+        AdmissionRepository admissionRepository = new AdmissionRepository();
+
+        HospitalRoomFactory hospitalRoomFactory = new HospitalRoomFactory();
+        EmergencyRoom emergencyRoom= EmergencyRoom.getInstance();
+
+        DoctorController doctorController = new DoctorController(doctorRepository,departmentRepository);
+        PatientController patientController = new PatientController(patientRepository);
+        MedicationController medicationController = new MedicationController(medicationRepository);
+        HospitalRoomController hospitalRoomController  = new HospitalRoomController(hospitalRoomRepository,hospitalRoomFactory);
+        DepartmentController departmentController = new DepartmentController(departmentRepository,doctorRepository);
+        PrescriptionController prescriptionController = new PrescriptionController(prescriptionRepository,patientRepository,doctorRepository,medicationRepository);
+        AppointmentController appointmentController = new AppointmentController(appointmentRepository,patientRepository,doctorRepository,hospitalRoomRepository,prescriptionRepository);
+        AdmissionController admissionController = new AdmissionController(admissionRepository,hospitalRoomRepository,patientRepository,doctorRepository);
+        EmergencyRoomController emergencyRoomController = new EmergencyRoomController(emergencyRoom,doctorRepository,patientRepository,admissionRepository,prescriptionRepository,hospitalRoomRepository);
+
+        PatientUI patientUI = new PatientUI(patientController);
+        MedicationUI medicationUI = new MedicationUI(medicationController);
+        HospitalRoomUI hospitalRoomUI = new HospitalRoomUI(hospitalRoomController);
+        DoctorUI doctorUI = new DoctorUI(doctorController);
+        DepartmentUI departmentUI = new DepartmentUI(departmentController);
+        PrescriptionUI prescriptionUI = new PrescriptionUI(prescriptionController);
         AppointmentUI appointmentUI = new AppointmentUI(appointmentController);
 
-        UI ui = new UI(patientUI,medicationUI,doctorUI,departmentUI,hospitalRoomUI,appointmentUI,prescriptionUI);
+
+
+        EmergencyRoomUI emergencyRoomUI = new EmergencyRoomUI(emergencyRoomController);
+        UI ui = new UI(patientUI,medicationUI,doctorUI,departmentUI,hospitalRoomUI,appointmentUI,prescriptionUI,emergencyRoomUI);
         ui.menu();
     }
 }

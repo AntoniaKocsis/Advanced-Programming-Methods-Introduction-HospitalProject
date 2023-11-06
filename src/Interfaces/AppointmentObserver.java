@@ -1,6 +1,6 @@
 package Interfaces;
 
-import Domain.Appointment;
+import Domain.HospitalServices.Appointment;
 
 public interface AppointmentObserver {
     void update(Appointment appointment);

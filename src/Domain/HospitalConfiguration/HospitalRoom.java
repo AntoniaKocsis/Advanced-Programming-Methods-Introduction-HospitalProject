@@ -1,4 +1,4 @@
-package Domain;
+package Domain.HospitalConfiguration;
 
 public class HospitalRoom {
     private int roomID;
@@ -7,6 +7,7 @@ public class HospitalRoom {
 
     public HospitalRoom(int roomNumber) {
         this.roomNumber = roomNumber;
+        roomID = nextID++;
     }
 
     public int getRoomID() {

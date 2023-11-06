@@ -1,4 +1,6 @@
-package Domain;
+package Domain.HospitalConfiguration;
+
+import Domain.HospitalStaff.Doctor;
 
 import java.util.ArrayList;
 

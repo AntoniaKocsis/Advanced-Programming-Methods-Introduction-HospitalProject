@@ -1,9 +1,8 @@
 package Controller;
 
-import Domain.Doctor;
-import Domain.Medication;
-import Domain.Patient;
-import Domain.Prescription;
+import Domain.HospitalStaff.Doctor;
+import Domain.Beneficiaries.Patient;
+import Domain.HospitalServices.Prescription;
 import Repository.DoctorRepository;
 import Repository.MedicationRepository;
 import Repository.PatientRepository;

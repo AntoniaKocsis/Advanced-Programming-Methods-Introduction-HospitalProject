@@ -1,7 +1,7 @@
 package UI;
 
 import Controller.HospitalRoomController;
-import Domain.HospitalRoom;
+import Domain.HospitalConfiguration.HospitalRoom;
 
 import java.util.Scanner;
 

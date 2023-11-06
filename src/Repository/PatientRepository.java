@@ -1,6 +1,6 @@
 package Repository;
 
-import Domain.Patient;
+import Domain.Beneficiaries.Patient;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,7 +20,7 @@ public class PatientRepository extends BaseRepository<Patient> {
     public Patient findByID(int id){
         Patient patient = null;
         for (Patient patient1 : patientRepository) {
-            if (patient.getPatientID() == id) {
+            if (patient1.getPatientID() == id) {
                 patient = patient1;
                 break;
             }

@@ -1,7 +1,7 @@
 package UI;
 
 import Controller.PatientController;
-import Domain.Patient;
+import Domain.Beneficiaries.Patient;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

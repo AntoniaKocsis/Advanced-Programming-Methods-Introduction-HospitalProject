@@ -1,7 +1,7 @@
 package Controller;
 
-import Domain.Department;
-import Domain.Doctor;
+import Domain.HospitalConfiguration.Department;
+import Domain.HospitalStaff.Doctor;
 import Repository.DepartmentRepository;
 import Repository.DoctorRepository;
 

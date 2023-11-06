@@ -1,6 +1,6 @@
 package Controller;
 
-import Domain.Medication;
+import Domain.HospitalServices.Medication;
 import Repository.MedicationRepository;
 
 import java.util.ArrayList;

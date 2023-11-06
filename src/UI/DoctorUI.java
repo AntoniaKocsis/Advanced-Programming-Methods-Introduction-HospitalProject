@@ -1,8 +1,8 @@
 package UI;
 
 import Controller.DoctorController;
-import Domain.Department;
-import Domain.Doctor;
+import Domain.HospitalConfiguration.Department;
+import Domain.HospitalStaff.Doctor;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

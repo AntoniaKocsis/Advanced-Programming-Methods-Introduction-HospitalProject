@@ -1,7 +1,7 @@
 package Repository;
 
-import Domain.Department;
-import Domain.Doctor;
+import Domain.HospitalConfiguration.Department;
+import Domain.HospitalStaff.Doctor;
 
 import java.util.ArrayList;
 

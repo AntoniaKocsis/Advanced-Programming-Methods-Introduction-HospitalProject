@@ -1,7 +1,7 @@
 package UI;
 
 import Controller.PrescriptionController;
-import Domain.Prescription;
+import Domain.HospitalServices.Prescription;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -1,6 +1,6 @@
-package Domain;
+package Domain.HospitalConfiguration;
 
-public class ExaminationRoom extends HospitalRoom{
+public class ExaminationRoom extends HospitalRoom {
     public ExaminationRoom(int number) {
         super(number);
     }

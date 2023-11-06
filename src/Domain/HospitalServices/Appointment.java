@@ -1,5 +1,8 @@
-package Domain;
+package Domain.HospitalServices;
 
+import Domain.HospitalStaff.Doctor;
+import Domain.HospitalConfiguration.ExaminationRoom;
+import Domain.Beneficiaries.Patient;
 import Interfaces.AppointmentObserver;
 
 import java.util.ArrayList;
@@ -8,7 +11,6 @@ import java.util.Date;
 public class Appointment {
     private int appointmentID;
     private static int nextID = 1;
-
     private Patient patient;
     private Doctor doctor;
     private Date date;
@@ -52,15 +54,6 @@ public class Appointment {
             this.date = date;
 
     }
-
-    public ExaminationRoom getRoom() {
-        return room;
-    }
-
-    public void setRoom(ExaminationRoom room) {
-        this.room = room;
-    }
-
     @Override
     public String toString() {
         return "Appointment{" +

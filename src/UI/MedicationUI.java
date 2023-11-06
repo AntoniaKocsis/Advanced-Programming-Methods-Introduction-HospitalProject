@@ -1,7 +1,7 @@
 package UI;
 
 import Controller.MedicationController;
-import Domain.Medication;
+import Domain.HospitalServices.Medication;
 
 import java.util.Objects;
 import java.util.Scanner;

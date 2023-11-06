@@ -1,4 +1,4 @@
-package Domain;
+package Domain.HospitalServices;
 
 public class Medication {
     private int medicationID;

@@ -1,7 +1,7 @@
 package Repository;
 
-import Domain.Medication;
-import Domain.Prescription;
+import Domain.HospitalServices.Medication;
+import Domain.HospitalServices.Prescription;
 
 import java.util.ArrayList;
 

@@ -1,14 +1,20 @@
 package Testing;
 
 import Controller.*;
-import Domain.*;
+import Domain.Beneficiaries.Patient;
+import Domain.Factory.HospitalRoomFactory;
+import Domain.HospitalConfiguration.AdmissionRoom;
+import Domain.HospitalConfiguration.Department;
+import Domain.HospitalConfiguration.ExaminationRoom;
+import Domain.HospitalConfiguration.HospitalRoom;
+import Domain.HospitalServices.Medication;
+import Domain.HospitalStaff.Doctor;
 import Repository.*;
 import UI.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Objects;
 
 public class Testing {
     public static ArrayList<Patient> PatientRepo(){
@@ -135,7 +141,7 @@ public class Testing {
 
 
         AppointmentRepository appointmentRepository = new AppointmentRepository();
-        AppointmentController appointmentController = new AppointmentController(appointmentRepository,patientRepository,doctorRepository,hospitalRoomRepository);
+        AppointmentController appointmentController = new AppointmentController(appointmentRepository,patientRepository,doctorRepository,hospitalRoomRepository,prescriptionRepository);
         AppointmentUI appointmentUI = new AppointmentUI(appointmentController);
 
 

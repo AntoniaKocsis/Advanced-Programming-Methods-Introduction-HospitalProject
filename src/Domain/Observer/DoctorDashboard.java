@@ -1,5 +1,7 @@
-package Domain;
+package Domain.Observer;
 
+import Domain.HospitalServices.Appointment;
+import Domain.HospitalStaff.Doctor;
 import Interfaces.AppointmentObserver;
 
 public class DoctorDashboard implements AppointmentObserver {

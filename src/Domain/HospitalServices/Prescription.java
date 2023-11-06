@@ -1,4 +1,7 @@
-package Domain;
+package Domain.HospitalServices;
+
+import Domain.HospitalStaff.Doctor;
+import Domain.Beneficiaries.Patient;
 
 import java.util.ArrayList;
 import java.util.Date;
